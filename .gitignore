@@ -1,5 +1,7 @@
 HELP.md
 target/
+logs/
+
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -12,14 +14,22 @@ target/
 .settings
 .springBeans
 .sts4-cache
-.yml
-.log
+
+### Logs ###
+*.log
+
+### YML Backup ###
+*.yml.bak
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
-/htmlReport
+
+### Reports ###
+htmlReport/
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
@@ -27,6 +37,7 @@ target/
 /nbdist/
 /.nb-gradle/
 build/
+
 !**/src/main/**/build/
 !**/src/test/**/build/
 
