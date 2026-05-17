@@ -1,0 +1,20 @@
+weather:
+  api:
+    key: 028728845e321458841000d932e1099a
+
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: irfanalisk110@gmail.com
+    password: xrhp icxx govt aasl
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  data:
+    redis:
+      url: redis://default:ZXru1L2GT07MswcKBdxOBwhiI9fLPlzo@majolica-exciting-lumber-91751.db.redis.io:18685

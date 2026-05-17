@@ -8,13 +8,14 @@ import javax.management.RuntimeErrorException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import net.edigest.journalApp.entity.JournalEntry;
 import net.edigest.journalApp.entity.User;
 import net.edigest.journalApp.repositary.JournalEntryRepositary;
 
-@Component
+@Service
 public class JournalEntryService {
 
 	@Autowired
