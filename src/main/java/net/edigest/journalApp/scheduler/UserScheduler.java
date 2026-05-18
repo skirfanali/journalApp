@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,7 @@ import net.edigest.journalApp.cache.AppCache;
 import net.edigest.journalApp.entity.JournalEntry;
 import net.edigest.journalApp.emuns.Sentiment;
 import net.edigest.journalApp.entity.User;
+import net.edigest.journalApp.model.SentimentData;
 import net.edigest.journalApp.repositary.UserRepositaryImpl;
 import net.edigest.journalApp.service.EmailService;
 
@@ -29,9 +31,12 @@ public class UserScheduler {
 
 	@Autowired
 	private AppCache appCache;
+	@Autowired
+	private KafkaTemplate<String, SentimentData> kafkaTemplate;
 
 	// Runs every minute
 //	@Scheduled(cron = "0 * * ? * *")
+	@Scheduled(fixedRate = 10000)
 	public void fetchUsersAndSendSaMail() {
 
 		List<User> users = userRepositaryImpl.getUserforSA();
@@ -73,8 +78,18 @@ public class UserScheduler {
 			}
 
 			if (mostFrequentSentiment != null) {
+				SentimentData sentimentData = SentimentData.builder().email(user.getEmail())
+						.sentiment("Sentiment for last 7 days: " + mostFrequentSentiment).build();
+				System.out.println("Received from Kafka: " + sentimentData);
+				kafkaTemplate.send("weekly-sentiment", sentimentData).whenComplete((result, ex) -> {
 
-				emailService.sendEmail(user.getEmail(), "Sentiment for last 7 days", mostFrequentSentiment.toString());
+					if (ex == null) {
+						System.out.println("Message Sent Successfully");
+					} else {
+						System.out.println("Error: " + ex.getMessage());
+					}
+				});
+
 			}
 		}
 	}
