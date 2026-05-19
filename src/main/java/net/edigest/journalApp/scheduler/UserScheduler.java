@@ -36,7 +36,7 @@ public class UserScheduler {
 
 	// Runs every minute
 //	@Scheduled(cron = "0 * * ? * *")
-	@Scheduled(fixedRate = 10000)
+//	@Scheduled(fixedRate = 10000)
 	public void fetchUsersAndSendSaMail() {
 
 		List<User> users = userRepositaryImpl.getUserforSA();

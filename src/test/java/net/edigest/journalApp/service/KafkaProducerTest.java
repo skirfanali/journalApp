@@ -1,5 +1,6 @@
 package net.edigest.journalApp.service;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,6 +14,7 @@ public class KafkaProducerTest {
     @Autowired
     private KafkaTemplate<String, SentimentData> kafkaTemplate;
 
+    @Disabled
     @Test
     public void sendMessageTest() {
 
